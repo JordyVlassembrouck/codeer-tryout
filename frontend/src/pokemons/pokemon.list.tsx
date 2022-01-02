@@ -49,6 +49,7 @@ export class PokemonList extends React.Component<{}, {pokemons: Pokemon[], isLoa
         title: 'Name',
         dataIndex: 'name',
         key: 'name',
+        render: (name: string, pokemon: Pokemon) => <Link to={`pokemons/${pokemon.id}`}>{name}</Link>
       },
       {
         title: 'Type',
@@ -60,7 +61,6 @@ export class PokemonList extends React.Component<{}, {pokemons: Pokemon[], isLoa
     return (
       <Page>
         {loadingIndicator}
-        <Link to="/example">example</Link>
         <Table dataSource={dataSource} columns={columns} rowKey="id" />;
       </Page>
     );
