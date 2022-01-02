@@ -1,6 +1,6 @@
 import { Layout } from "antd";
 import { Content, Header } from "antd/es/layout/layout";
-import React, { FC, ReactNode } from "react";
+import { FC, ReactNode } from "react";
 import logo from "../logo.png";
 
 interface Props {

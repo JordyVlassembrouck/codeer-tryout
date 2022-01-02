@@ -4,6 +4,7 @@ import { Page } from "../components/page";
 import { Table } from "antd";
 import { Pokemon } from "../models/pokemon";
 import { PokemonTypeTag } from "./pokemon-type.tag";
+import axios from "axios";
 
 export class PokemonList extends React.Component<{}, {pokemons: Pokemon[], isLoaded: boolean}> {
   constructor(props: any) {
@@ -12,12 +13,12 @@ export class PokemonList extends React.Component<{}, {pokemons: Pokemon[], isLoa
   }
 
   componentDidMount() {
-    fetch("http://localhost:4000/pokemons")
-      .then(response => response.json())
+    axios.get("http://localhost:4000/pokemons")
       .then(
         (result) => {
+          console.log(result);
           this.setState({
-            pokemons: result,
+            pokemons: result.data,
             isLoaded: true
           });
         },
