@@ -10,8 +10,8 @@ interface Props {
 export const Page: FC<Props> = ({ children }) => {
     return (
         <Layout>
-            <Header>
-                <img src={logo} style={{ width: '150px' }} className="App-logo" alt="logo" />
+            <Header style={{ textAlign: 'center', height: 'auto' }}>
+                <img src={logo} style={{ width: '250px', verticalAlign: 'middle'}} className="App-logo" alt="logo" />
             </Header>
             <Content style={{ height: "100%" }}>{children}</Content>
         </Layout>
