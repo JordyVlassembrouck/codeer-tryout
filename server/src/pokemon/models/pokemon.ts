@@ -29,3 +29,15 @@ class PokemonStats {
     this.speed = speed;
   }
 }
+
+export class PokemonListView {
+  public id: number;
+  public name: string;
+  public type: string[];
+
+  constructor(id: number, name: string, type: string[]) {
+    this.id = id;
+    this.name = name;
+    this.type = type;
+  }
+}
