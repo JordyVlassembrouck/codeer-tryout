@@ -1,4 +1,4 @@
-import { FC } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import { Page } from "../components/page";
 
@@ -6,11 +6,16 @@ type RouteProps = {
   id: string;
 };
 
-export const PokemonDetail: FC = () => {
-  const { id } = useParams<RouteProps>();
-  return (
-    <Page>
-      <h1>{id}</h1>;
-    </Page>
-  );
-};
+const id = null;
+// const { id } = useParams<RouteProps>();
+
+export class PokemonDetail extends React.Component {
+
+  render() {
+    return (
+      <Page>
+        <h1>{id}</h1>;
+      </Page>
+    );
+  }
+}

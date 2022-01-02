@@ -1,6 +1,5 @@
 import "antd/dist/antd.css";
-import React from "react";
-import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { PokemonDetail } from "./pokemons/pokemon.detail";
 import { PokemonList } from "./pokemons/pokemon.list";
 
