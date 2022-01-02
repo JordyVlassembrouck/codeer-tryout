@@ -1,13 +1,13 @@
-import { Controller, Get, Param } from '@nestjs/common';
-import { PokemonDto } from '../dto/pokemon.dto';
-import { PokemonService } from '../services';
+import { Controller, Get } from '@nestjs/common';
+import { Pokemon } from '../models/pokemon';
+import { PokemonRepository } from '../repositories';
 
 @Controller('pokemons')
 export class PokemonController {
-    constructor(private readonly pokemonService: PokemonService) {}
+    constructor(private readonly pokemonRepository: PokemonRepository) {}
 
     @Get()
-    findAll(): PokemonDto[] {
-        return this.pokemonService.findAll();
+    findAll(): Pokemon[] {
+        return this.pokemonRepository.findAll();
     }
 }

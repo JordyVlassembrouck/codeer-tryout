@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { PokemonController } from './controllers';
-import { PokemonService } from './services';
+import { PokemonRepository } from './repositories';
 
 @Module({
     imports: [],
     controllers: [PokemonController],
-    providers: [PokemonService],
+    providers: [PokemonRepository],
 })
 export class PokemonModule {}
