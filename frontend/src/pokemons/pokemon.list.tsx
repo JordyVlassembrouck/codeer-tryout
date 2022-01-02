@@ -1,10 +1,10 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Page } from "../components/page";
-import { Table } from "antd";
-import { Pokemon } from "../models/pokemon";
-import { PokemonTypeTag } from "./pokemon-type.tag";
-import axios from "axios";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Page } from '../components/page';
+import { Table } from 'antd';
+import { Pokemon } from '../models/pokemon';
+import { PokemonTypeTag } from './pokemon-type.tag';
+import axios from 'axios';
 
 export class PokemonList extends React.Component<{}, {pokemons: Pokemon[], isLoaded: boolean}> {
   constructor(props: any) {
@@ -13,10 +13,9 @@ export class PokemonList extends React.Component<{}, {pokemons: Pokemon[], isLoa
   }
 
   componentDidMount() {
-    axios.get("http://localhost:4000/pokemons")
+    axios.get('http://localhost:4000/pokemons')
       .then(
         (result) => {
-          console.log(result);
           this.setState({
             pokemons: result.data,
             isLoaded: true
@@ -50,7 +49,7 @@ export class PokemonList extends React.Component<{}, {pokemons: Pokemon[], isLoa
         dataIndex: 'name',
         key: 'name',
         width: 200,
-        render: (name: string, pokemon: Pokemon) => <Link to={`pokemons/${pokemon.id}`}>{name}</Link>
+        render: (name: string, pokemon: Pokemon) => <Link to={`/pokemons/${pokemon.id}` }>{name}</Link>
       },
       {
         title: 'Type',
@@ -66,7 +65,7 @@ export class PokemonList extends React.Component<{}, {pokemons: Pokemon[], isLoa
     return (
       <Page>
         {loadingIndicator}
-        <Table dataSource={dataSource} columns={columns} pagination={{ pageSize: 60 }} rowKey="id"/>;
+        <Table dataSource={dataSource} columns={columns} pagination={{ pageSize: 60 }} rowKey='id'/>;
       </Page>
     );
   }
