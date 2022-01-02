@@ -2,11 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Page } from '../components/page';
 import { Table } from 'antd';
-import { Pokemon } from '../models/pokemon';
+import { PokemonListView } from '../models/pokemon';
 import { PokemonTypeTag } from './pokemon-type.tag';
 import axios from 'axios';
 
-export class PokemonList extends React.Component<{}, {pokemons: Pokemon[], isLoaded: boolean}> {
+export class PokemonList extends React.Component<{}, {pokemons: PokemonListView[], isLoaded: boolean}> {
   constructor(props: any) {
     super(props);
     this.state = {pokemons: [], isLoaded: false};
@@ -49,7 +49,7 @@ export class PokemonList extends React.Component<{}, {pokemons: Pokemon[], isLoa
         dataIndex: 'name',
         key: 'name',
         width: 200,
-        render: (name: string, pokemon: Pokemon) => <Link to={`/pokemons/${pokemon.id}` }>{name}</Link>
+        render: (name: string, pokemon: PokemonListView) => <Link to={`/pokemons/${pokemon.id}` }>{name}</Link>
       },
       {
         title: 'Type',

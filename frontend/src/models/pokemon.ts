@@ -13,3 +13,9 @@ interface PokemonStats {
   specialDefense: number;
   speed: number;
 }
+
+export interface PokemonListView {
+  id: number;
+  name: string;
+  type: string[];
+}
