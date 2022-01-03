@@ -4,8 +4,8 @@ import { Page } from '../components/page';
 import { Button, Table } from 'antd';
 import { PokemonListView } from '../models/pokemon';
 import { PokemonTypeTag } from './pokemon-type.tag';
-import axios from 'axios';
 import { DeleteOutlined } from '@ant-design/icons';
+import pokemonHttpService from '../services/pokemon-http.service';
 
 export class PokemonList extends React.Component<{}, {pokemons: PokemonListView[], isLoaded: boolean}> {
   constructor(props: any) {
@@ -18,28 +18,15 @@ export class PokemonList extends React.Component<{}, {pokemons: PokemonListView[
     this.getAllPokemon();
   }
 
-  private getAllPokemon(): void {
-    axios.get('http://localhost:4000/pokemons')
-      .then((result) => {
-        this.setState({
-          pokemons: result.data,
-          isLoaded: true
-        });
-      },
-      (error) => {
-        console.error('An error has occured while fetching Pokemons:', error);
-        this.setState({
-          isLoaded: true
-        });
-      }
-    )
+  private getAllPokemon() {
+    pokemonHttpService.getAllPokemon().then((pokemons: PokemonListView[]) => this.setState({
+      pokemons: pokemons,
+      isLoaded: true
+    }));
   }
 
   private deletePokemon(id: number): void {
-    axios.delete(`http://localhost:4000/pokemons/${id}`)
-    .then((result) => {
-      this.getAllPokemon();
-    })
+    pokemonHttpService.deletePokemon(id).then(() => this.getAllPokemon());
   }
 
   render() {
