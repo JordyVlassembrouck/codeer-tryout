@@ -1,8 +1,10 @@
-import { HttpException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import * as pokemonJson from '../data/pokemons.json';
 import { Pokemon } from '../models/pokemon';
 import { PokemonDto } from '../models/pokemon.dto';
 import { PokemonNotFoundException } from './pokemon-not-found.exception';
+import { existsSync, writeFileSync, readFileSync } from 'fs';
+import { resolve } from 'path';
 
 @Injectable()
 export class PokemonRepository {
@@ -29,6 +31,26 @@ export class PokemonRepository {
         }
 
         return this.createPokemonFrom(pokemonDto);
+    }
+
+    deletePokemon(id: number): void {
+        const remainingPokemons = this.pokemonDtos.filter((pokemonDto: PokemonDto) => pokemonDto.id !== id);
+
+        const filePath = resolve(__dirname, '../data/pokemons.json');
+        const fileExists = existsSync(filePath);
+
+        if (!fileExists) {
+            console.error('[SERVER ERROR] Data file does not exist');
+            throw new Error('[SERVER ERROR] Data file does not exist');
+        } else {
+            try {
+                writeFileSync(filePath, JSON.stringify(remainingPokemons));
+                this.pokemonDtos = JSON.parse(readFileSync(filePath).toString());
+            } catch (error) {
+                console.error('[SERVER ERROR] Encountered an error while reading/writing pokemon data');
+                throw error;
+            }
+        }
     }
 
     private createPokemonFrom(pokemonDto: PokemonDto): Pokemon {

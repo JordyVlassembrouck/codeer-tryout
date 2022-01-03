@@ -1,4 +1,4 @@
-import { Controller, Get, HttpException, HttpStatus, Param } from '@nestjs/common';
+import { Controller, Delete, Get, HttpException, HttpStatus, Param } from '@nestjs/common';
 import { Pokemon, PokemonListView } from '../models/pokemon';
 import { PokemonRepository } from '../repositories';
 
@@ -22,6 +22,13 @@ export class PokemonController {
         const pokemon = this.pokemonRepository.getPokemon(pokemonId);
 
         return pokemon;
+    }
+
+    @Delete(':id')
+    deletePokemon(@Param() params): void {
+        const pokemonId = this.checkIfIdIsValid(params.id);
+        
+        this.pokemonRepository.deletePokemon(pokemonId);
     }
 
     private checkIfIdIsValid(pokemonId: string): number {
