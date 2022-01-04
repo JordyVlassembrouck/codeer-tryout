@@ -13,7 +13,7 @@ export const Page: FC<Props> = ({ children }) => {
             <Header style={{ textAlign: 'center', height: 'auto' }}>
                 <img src={logo} style={{ width: '250px', verticalAlign: 'middle'}} className='App-logo' alt='logo' />
             </Header>
-            <Content style={{ height: '100%' }}>{children}</Content>
+            <Content style={{ height: '100%', backgroundColor: 'white' }}>{children}</Content>
         </Layout>
     );
 };

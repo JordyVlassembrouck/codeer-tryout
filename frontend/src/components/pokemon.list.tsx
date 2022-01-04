@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Page } from '../components/page';
-import { Button, Table } from 'antd';
+import { Button, Col, Row, Table } from 'antd';
 import { PokemonListView } from '../models/pokemon';
 import { PokemonTypeTag } from './pokemon-type.tag';
 import { DeleteOutlined } from '@ant-design/icons';
 import pokemonHttpService from '../services/pokemon-http.service';
 
-export class PokemonList extends React.Component<{}, {pokemons: PokemonListView[], isLoaded: boolean}> {
+export class PokemonList extends React.Component<{history: any}, {pokemons: PokemonListView[], isLoaded: boolean}> {
   constructor(props: any) {
     super(props);
     this.state = {pokemons: [], isLoaded: false};
@@ -18,7 +18,7 @@ export class PokemonList extends React.Component<{}, {pokemons: PokemonListView[
     this.getAllPokemon();
   }
 
-  private getAllPokemon() {
+  private getAllPokemon(): void {
     pokemonHttpService.getAllPokemon().then((pokemons: PokemonListView[]) => this.setState({
       pokemons: pokemons,
       isLoaded: true
@@ -70,8 +70,13 @@ export class PokemonList extends React.Component<{}, {pokemons: PokemonListView[
 
     return (
       <Page>
+        <Row>
+          <Col span={24} style={{ textAlign: 'right'}}>
+            <Button onClick={() => this.props.history.push('/pokemons/create') } type='primary' shape='round' style={{ margin: '20px 20px 20px 0' }}>Create new Pokemon</Button>
+          </Col>
+        </Row>
         {loadingIndicator}
-        <Table dataSource={dataSource} columns={columns} rowKey='id'/>;
+        <Table dataSource={dataSource} columns={columns} rowKey='id'/>
       </Page>
     );
   }
