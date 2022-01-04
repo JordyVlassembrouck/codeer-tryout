@@ -19,3 +19,9 @@ export interface PokemonListView {
   name: string;
   type: string[];
 }
+
+export interface PokemonCreateRequest {
+  name: string;
+  type: string[];
+  stats: PokemonStats;
+}

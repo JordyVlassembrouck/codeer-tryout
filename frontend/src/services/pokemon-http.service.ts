@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Pokemon, PokemonListView } from '../models/pokemon';
+import { Pokemon, PokemonCreateRequest, PokemonListView } from '../models/pokemon';
 
 const pokemonHttpService = {
   getAllPokemon: (): Promise<PokemonListView[]> => {
@@ -20,10 +20,19 @@ const pokemonHttpService = {
       })
   },
 
-  deletePokemon: (id: number): any => {
+  deletePokemon: (id: number): Promise<any> => {
     return axios.delete(`http://localhost:4000/pokemons/${id}`)
       .catch((error) => {
         console.error('An error has occured while deleting Pokemons:', error);
+        throw error;
+      })
+  },
+
+  createPokemon: (pokemon: PokemonCreateRequest): Promise<number> => {
+    return axios.post('http://localhost:4000/pokemons', pokemon)
+      .then((result) => result.data)
+      .catch((error) => {
+        console.error('An error has occured while creating a new Pokemon:', error);
         throw error;
       })
   }

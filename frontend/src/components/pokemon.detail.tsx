@@ -70,7 +70,7 @@ export class PokemonDetail extends React.Component<{history: any}, {id: number, 
       pokemonDetails = (
         <div>
           <Row>
-            <Col flex='auto' style={{textAlign: 'center'}}><img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${pokemon.id}.gif`}/></Col>
+            <Col flex='auto' style={{textAlign: 'center'}}><img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${pokemon.id}.gif`} alt='PokemonSprite'/></Col>
           </Row>
           <Row>
             <Col flex='auto' style={{textAlign: 'center'}}><h1><b>{pokemon.name}</b></h1></Col>
