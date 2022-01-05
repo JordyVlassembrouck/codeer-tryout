@@ -14,6 +14,32 @@ export class PokemonRepository {
         this.pokemonDtos = pokemonJson;
     }
 
+    createNewPokemon(pokemon: Pokemon): PokemonDto {
+        const filePath = resolve(__dirname, '../data/pokemons.json');
+        const fileExists = existsSync(filePath);
+
+        if (!fileExists) {
+            console.error('[SERVER ERROR] Data file does not exist');
+            throw new Error('[SERVER ERROR] Data file does not exist');
+        } else {
+            try {
+                const lastPokemonId = this.pokemonDtos[this.pokemonDtos.length - 1].id;
+                pokemon.id = lastPokemonId + 1;
+                const newPokemonDto = this.createPokemonDtoFrom(pokemon);
+
+                this.pokemonDtos.push(newPokemonDto);
+
+                writeFileSync(filePath, JSON.stringify(this.pokemonDtos));
+                this.pokemonDtos = JSON.parse(readFileSync(filePath).toString());
+
+                return newPokemonDto;
+            } catch (error) {
+                console.error('[SERVER ERROR] Encountered an error while writing pokemon data');
+                throw error;
+            }
+        }
+    }
+
     getAllPokemon(): Pokemon[] {
         const pokemons = [];
         this.pokemonDtos.forEach((pokemonDto: PokemonDto) => 
@@ -64,6 +90,20 @@ export class PokemonRepository {
             pokemonDto.base['Sp. Attack'],
             pokemonDto.base['Sp. Defense'],
             pokemonDto.base.Speed
+        );
+    }
+
+    private createPokemonDtoFrom(pokemon: Pokemon): PokemonDto {
+        return new PokemonDto(
+            pokemon.id,
+            pokemon.name,
+            pokemon.type,
+            pokemon.stats.HP,
+            pokemon.stats.attack,
+            pokemon.stats.defense,
+            pokemon.stats.specialAttack,
+            pokemon.stats.specialDefense,
+            pokemon.stats.speed
         );
     }
 }

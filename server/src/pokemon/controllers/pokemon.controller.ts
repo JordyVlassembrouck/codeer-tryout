@@ -1,5 +1,6 @@
-import { Controller, Delete, Get, HttpException, HttpStatus, Param } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Req } from '@nestjs/common';
 import { Pokemon, PokemonListView } from '../models/pokemon';
+import { PokemonCreateJsonRequest } from '../models/pokemon-create.json-request';
 import { PokemonRepository } from '../repositories';
 
 @Controller('pokemons')
@@ -42,5 +43,14 @@ export class PokemonController {
         } else {
             return parsedPokemonId;
         }
+    }
+
+    @Post()
+    createPokemon(@Body() jsonRequest: PokemonCreateJsonRequest): number {
+        const pokemon = new Pokemon(null, jsonRequest.name, jsonRequest.type, jsonRequest.stats.HP, jsonRequest.stats.attack, jsonRequest.stats.defense, jsonRequest.stats.specialAttack, jsonRequest.stats.specialDefense, jsonRequest.stats.speed);
+
+        const newPokemon = this.pokemonRepository.createNewPokemon(pokemon);
+        
+        return newPokemon.id;
     }
 }
