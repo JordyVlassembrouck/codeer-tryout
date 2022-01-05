@@ -14,7 +14,7 @@ export class PokemonRepository {
         this.pokemonDtos = pokemonJson;
     }
 
-    createNewPokemon(pokemon: Pokemon): PokemonDto {
+    createNewPokemon(pokemon: Pokemon): Pokemon {
         const filePath = resolve(__dirname, '../data/pokemons.json');
         const fileExists = existsSync(filePath);
 
@@ -32,7 +32,7 @@ export class PokemonRepository {
                 writeFileSync(filePath, JSON.stringify(this.pokemonDtos));
                 this.pokemonDtos = JSON.parse(readFileSync(filePath).toString());
 
-                return newPokemonDto;
+                return pokemon;
             } catch (error) {
                 console.error('[SERVER ERROR] Encountered an error while writing pokemon data');
                 throw error;
