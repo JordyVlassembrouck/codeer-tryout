@@ -29,12 +29,16 @@ export class PokemonDetail extends React.Component<{history: any}, {id: number, 
   }
 
   private getProgressColor(percentage: number): string {
-    if (percentage < 40) {
-      return '#ff4d4f';
-    } else if (percentage < 80) {
-      return '#faad14';
+    const RED = '#ff4d4f';
+    const ORANGE = '#faad14';
+    const GREEN = '#52c41a';
+
+    if (percentage < 30) {
+      return RED;
+    } else if (percentage < 70) {
+      return ORANGE;
     } else {
-      return '#52c41a';
+      return GREEN;
     }
   }
 
